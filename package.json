@@ -1,0 +1,36 @@
+{
+  "name": "calendario-examenes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "teacher:create": "tsx --env-file=.env.local scripts/create-teacher.ts"
+  },
+  "dependencies": {
+    "@better-auth/mongo-adapter": "1.7.27",
+    "better-auth": "1.7.27",
+    "lucide-react": "^1.31.0",
+    "mongodb": "7.9.1",
+    "next": "16.3.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "@types/node": "^22.19.19",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "mongodb-memory-server": "^10.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.3"
+  }
+}
