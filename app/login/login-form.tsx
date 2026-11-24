@@ -12,7 +12,7 @@ export default function LoginForm({configured}:{configured:boolean}){
     const r=await fetch('/api/classroom',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'join',code:String(form.get('code')||'').trim()})});const data=await r.json();if(!r.ok)throw new Error(data.error||'No se pudo entrar en la clase.');sessionStorage.setItem('selected-class',data.id);window.location.assign('/');return;
    }
    const username=String(form.get('email')||'').trim().toLowerCase();
-   const {error:loginError}=await authClient.signIn.email({email:username==='profesores'?'profesores@calendario.local':username,password:String(form.get('password')||'')});if(loginError)throw new Error('Usuario o contraseña incorrectos.');
+   const {error:loginError}=await authClient.signIn.email({email:username==='profesores'?'profesores@calendario.local':username,password:String(form.get('password')||'')});if(loginError)throw new Error(loginError.status>=500?'No se pudo conectar al servicio de acceso. Inténtalo más tarde.':loginError.status===429?'Demasiados intentos. Espera un minuto.':'Usuario o contraseña incorrectos.');
    const r=await fetch('/api/classroom');const data=await r.json();if(!r.ok||data.user?.role!=='teacher'){await authClient.signOut();throw new Error('Esta cuenta no está autorizada como profesor. Pide acceso al administrador.')}
    sessionStorage.removeItem('selected-class');window.location.assign('/');
   }catch(e:unknown){setError(e instanceof Error?e.message:'No se pudo acceder. Inténtalo de nuevo.')}finally{setBusy(false)}
