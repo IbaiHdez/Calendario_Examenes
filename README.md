@@ -33,6 +33,8 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 No subas `.env.local`, contraseñas ni cadenas de conexión al repositorio. Si una contraseña de Atlas contiene caracteres especiales, codifícala para usarla en la URI.
 
+También puedes configurar la conexión por campos: `MONGODB_HOST` (solo el dominio del clúster), `MONGODB_USER=calendario_app` y `MONGODB_PASSWORD` (la contraseña tal cual, como secreto). La aplicación construye la conexión y codifica los caracteres especiales. Si existe `MONGODB_PASSWORD`, estos campos tienen prioridad y `MONGODB_URI` no se utiliza.
+
 ```sh
 npm run dev
 ```
