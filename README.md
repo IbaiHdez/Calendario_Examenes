@@ -2,7 +2,7 @@
 
 Calendario de clase con una interfaz sencilla. Next.js + MongoDB Atlas + Better Auth, preparado para Vercel.
 
-- Los profesores acceden con correo y contraseña, crean varias clases y publican exámenes.
+- Todos los profesores acceden con el usuario compartido `profesores` y una misma contraseña, crean varias clases y publican exámenes.
 - Cada clase genera un código aleatorio de 12 caracteres.
 - Los alumnos entran con ese código, sin correo ni contraseña. Solo pueden consultar las clases a las que se han unido.
 - Las asignaturas son libres: sirve para ESO, Bachillerato, DAW y otros cursos.
@@ -48,7 +48,7 @@ Abre http://localhost:3000. Sin las variables configuradas, el login muestra «C
 
 La aplicación crea sus colecciones e índices al usarse. MongoDB Atlas ofrece las transacciones que utiliza Better Auth. No hay SQL ni migraciones de Supabase.
 
-## Crear profesores
+## Crear la cuenta compartida de profesores
 
 El registro público de profesores está desactivado. No basta con cambiar un rol en el navegador: la autorización se comprueba en la colección `teachers`, accesible solo desde el servidor.
 
@@ -58,9 +58,9 @@ Desde un equipo autorizado, con `.env.local` apuntando a la base de datos:
 npm run teacher:create
 ```
 
-El asistente solicita nombre, correo y contraseña oculta. Guarda la contraseña mediante Better Auth, nunca en texto plano. Para restablecer una contraseña, ejecuta el mismo comando con el correo existente; pide confirmación y revoca las sesiones anteriores.
+El asistente solicita nombre, correo y contraseña oculta. Para la cuenta compartida usa el nombre `Profesores` y el correo interno `profesores@calendario.local`; la pantalla de acceso acepta el usuario `profesores`. Este correo es un identificador interno y no recibe mensajes. Guarda la contraseña mediante Better Auth, nunca en texto plano. Para restablecerla, ejecuta el mismo comando con ese correo; pide confirmación y revoca las sesiones anteriores.
 
-El administrador entrega las credenciales al profesor. No se necesita un proveedor de correo y no se envían emails automáticamente.
+El administrador entrega las mismas credenciales a todos los profesores. Todos gestionan las clases de esta cuenta. Los alumnos solo acceden a las clases mediante sus códigos y no pueden modificar exámenes. No se necesita un proveedor de correo ni se envían emails automáticamente.
 
 ## Desplegar en Vercel
 
