@@ -1,12 +1,15 @@
 # Calendario de exámenes
 
-Calendario de clase con una interfaz sencilla. Next.js + MongoDB Atlas + Better Auth, preparado para Vercel.
+Calendario de clase con una interfaz liquid glass: superficies translúcidas, contraste legible y controles adaptados a móvil. Next.js + MongoDB Atlas + Better Auth, preparado para Vercel.
 
 - Todos los profesores acceden con el usuario compartido `profesores` y una misma contraseña, crean varias clases y publican exámenes.
 - Cada clase genera un código aleatorio de 12 caracteres.
 - Los alumnos entran con ese código, sin correo ni contraseña. Solo pueden consultar las clases a las que se han unido.
 - Las asignaturas son libres: sirve para ESO, Bachillerato, DAW y otros cursos.
 - Vista mensual, lista, filtro de asignatura y formulario de examen con fecha, hora y tema.
+- Resumen del mes y acceso directo al próximo examen. Los colores de las asignaturas se mantienen aunque cambien los exámenes.
+- Acceso por teclado, foco visible, movimiento reducido y alternativa visual para navegadores sin desenfoque. La vista mensual se desplaza horizontalmente en pantallas pequeñas; la lista evita ese desplazamiento.
+- Al entrar como alumno desde una sesión de profesor, se cierra primero esa sesión y se inicia una sesión de consulta.
 
 ## Ejecutar en local
 
@@ -39,7 +42,7 @@ También puedes configurar la conexión por campos: `MONGODB_HOST` (solo el domi
 npm run dev
 ```
 
-Abre http://localhost:3000. Sin las variables configuradas, el login muestra «Configuración pendiente» y no simula un acceso.
+Abre http://localhost:3000. Sin las variables configuradas, el login muestra «Acceso todavía no disponible» y no simula un acceso.
 
 ## MongoDB Atlas
 
@@ -81,6 +84,7 @@ Los despliegues Preview necesitan su propia URL autorizada y, preferiblemente, u
 npm run typecheck
 npm test
 npm run build
+npm audit --omit=dev
 ```
 
 Las pruebas levantan un MongoDB temporal local y comprueban contraseñas cifradas mediante hash, sesiones, cierre de sesión, registro público bloqueado, múltiples clases, códigos únicos, lectura por pertenencia, edición solo por el profesor propietario y fechas válidas. No acceden a Atlas.
